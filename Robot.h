@@ -38,7 +38,7 @@ public:
 	int DirtCollected();
 	int sumDirtInHouse();
 	void printHouse();
-	void montage(const string& algoName, const string& houseName) const;
+	void montage(const string& algoName, const string& houseName, int couner) const;
 	void toVideo(const string& algoName, const string& houseName) const;
 	//void createDirectoryIfNotExists(const string& dir_path);
 

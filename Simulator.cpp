@@ -147,7 +147,7 @@ void Simulator::runOnOneHouse(int index_house, int thread_index) {
 			if (!robots[k]->isCanRun())
 				continue;
 			else
-				robots[k]->montage(algosNames[k - (index_house*num_of_algos)], housesNames[index_house]);
+				robots[k]->montage(algosNames[k - (index_house*num_of_algos)], housesNames[index_house], simulation_steps);
 
 
 			robots[k]->runRobot();

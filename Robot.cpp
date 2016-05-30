@@ -128,7 +128,7 @@ string Robot::DirectionToString(Direction d) {
 	return "Stay";
 }
 
-static int counter = 0;
+//static int counter = 0;
 
 void createDirectoryIfNotExists(const string& dir_path){
 	boost::filesystem::path dir(dir_path);
@@ -139,7 +139,7 @@ void createDirectoryIfNotExists(const string& dir_path){
 	}
 }
 
-void Robot::montage(const string& algoName, const string& houseName) const
+void Robot::montage(const string& algoName, const string& houseName,int counter) const
 {
 	size_t C = house->getC();
 	size_t R = house->getR();
@@ -179,7 +179,7 @@ void Robot::toVideo(const string& algoName, const string& houseName) const
 	{
 		cout << "DELETE IMG" << endl;
 
-		//boost::filesystem::remove_all(simulationDir);
+		boost::filesystem::remove_all(simulationDir);
 	}
 
 	cout << "created video" << endl;
