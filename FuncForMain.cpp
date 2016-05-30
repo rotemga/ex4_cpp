@@ -6,8 +6,7 @@
 #define CONFIG_PATH "-config"
 #define SCORE_PATH "-score_formula"
 #define NUMBER_OF_THERADS "-­threads"
-#define GRAPH_PATH "graph_output_path"
-#define STEPS_PER_FRAME "animated_gif_steps_per_frame"
+#define VIDEO_COMMAND "-video"
 #define LEFTB "["
 #define RIGHTB "]"
 
@@ -97,8 +96,7 @@ bool checkConfig(string fileName, map<string, string>* config, string config_pat
 	*config = iniParser.getMap();
 	vector<string> confiVector = { "MaxStepsAfterWinner",
 		"BatteryCapacity", "BatteryConsumptionRate",
-		"BatteryRechargeRate", "cell_x", "cell_y", "cell_space_x", "cell_space_y",
-		"animated_gif_millisec_per_frame" };
+		"BatteryRechargeRate" };
 	vector<bool> checkAllConfi(confiVector.size());
 	checkVectorByMap(*config, confiVector, &checkAllConfi);
 	unsigned int numberOfMissingConfi;
@@ -148,20 +146,11 @@ int findIndexOfElem(vector<string> Names, string name) {
 	}
 }
 void checkArguments(int argc, char** argv, string& config_path, string& algo_path, string& house_path, string& score_path, int& number_thread,
-	string& graph_path, int& number_of_steps_per_frame) {
+	bool& makeVideo) {
 	vector<string> commandLineOptions(argc - 1);
 	for (int i = 1; i < argc; i++)
 		commandLineOptions[i - 1] = argv[i];
-	int pos_graph = findIndexOfElem(commandLineOptions, GRAPH_PATH);
-	if (pos_graph < static_cast<int>(commandLineOptions.size()) - 1 && pos_graph != -1)
-		graph_path = commandLineOptions[pos_graph + 1];
-	else
-		graph_path = "";
-	int pos_steps = findIndexOfElem(commandLineOptions, STEPS_PER_FRAME);
-	if (pos_steps < static_cast<int>(commandLineOptions.size()) - 1 && pos_steps != -1)
-		number_of_steps_per_frame = stoi(commandLineOptions[pos_steps + 1]);
-	else
-		number_of_steps_per_frame = -1;
+	makeVideo = (findIndexOfElem(commandLineOptions, VIDEO_COMMAND) != -1);
 	int pos_score = findIndexOfElem(commandLineOptions, "-score_formula");
 	if (pos_score < static_cast<int>(commandLineOptions.size()) - 1 && pos_score != -1)
 		score_path = commandLineOptions[pos_score + 1];

@@ -1,3 +1,4 @@
+
 #include "FuncForMain.h"
 #include <dlfcn.h>
 #include "AlgorithmRegistration.h"
@@ -9,7 +10,7 @@ typedef AbstractAlgorithm* (*algoCreator)();
 
 
 int main(int argc, char* argv[]) {
-	string config_path, house_path, algo_path, score_path, graph_path;
+	string config_path, house_path, algo_path, score_path;
 	map<string, string> houses_mapName, algo_mapName, config_mapName, score_mapName;
 	vector <fs::path> fileName_currDir;
 	vector <House*> houses;
@@ -20,12 +21,17 @@ int main(int argc, char* argv[]) {
 	vector<unique_ptr<AbstractAlgorithm>> Algos;
 	map<string, string> ErrorMSGAlgo;
 	string ErrorMSGScore = "";
-	int number_threads, number_of_steps_per_frame;
+	bool makeVideo = false;
+	int number_threads;
 	vector<void*> handlersVector;
 	void* scoreHandler;
 	scoreFunc scorefunction = nullptr;
 	bool house_exist, config_exist, algo_exist, score_exist;
-	checkArguments(argc, argv, config_path, algo_path, house_path, score_path, number_threads, graph_path, number_of_steps_per_frame);
+	checkArguments(argc, argv, config_path, algo_path, house_path, score_path, number_threads, makeVideo);
+	if (makeVideo && (number_threads > 1)) {
+		cout << "Cannot create video with more than one thread" << endl;
+		return 1;
+	}
 	house_exist = updateFilesFromDirectory(houses_mapName, ".house", house_path);
 	config_exist = updateFilesFromDirectory(config_mapName, ".ini", config_path);
 	algo_exist = updateFilesFromDirectory(algo_mapName, "_.so", algo_path);

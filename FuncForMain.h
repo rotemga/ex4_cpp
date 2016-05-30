@@ -26,6 +26,6 @@ void  printConfiError(int numberOfMissing, vector<bool> checkAllConfi, vector<st
 bool checkConfig(string fileName, map<string, string>* config, string config_path);
 int checkHouses(map<string, string> houseNames, vector<House*>* houses, map<string, string>* errorHouse);
 void checkArguments(int argc, char** argv, string& config_path, string& algo_path, string& house_path, string& score_path, int& number_thread,
-	string& graph_path, int& number_of_steps_per_frame);
+	bool& makeVideo);
 void Usage(string house_path, string config_path, string algo_path, string score_path, bool house_exist, bool config_exist, bool algo_exist, bool score_exist);
 #endif /* FUNCFORMAIN_H_ */
